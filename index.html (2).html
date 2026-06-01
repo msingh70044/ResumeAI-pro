@@ -1,0 +1,799 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,sans-serif);background:var(--color-background-tertiary);color:var(--color-text-primary);font-size:14px}
+.page{display:none;animation:fi .25s ease}.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+nav{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:50px;position:sticky;top:0;z-index:100}
+.logo{font-size:16px;font-weight:500;cursor:pointer;color:var(--color-text-primary)}
+.logo span{color:#c9a84c}
+.nav-r{display:flex;align-items:center;gap:4px}
+.nbtn{background:none;border:none;font-size:13px;color:var(--color-text-secondary);padding:5px 10px;border-radius:6px;cursor:pointer;font-family:inherit}
+.nbtn:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.nbtn.pri{background:#0d1117;color:#fff;border-radius:6px}
+.nbtn.pri:hover{background:#1a7f6e}
+.av{width:28px;height:28px;border-radius:50%;background:#1a7f6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500}
+
+.hero{background:#0d1117;padding:40px 20px 36px;text-align:center}
+.hbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#e8c96a;border-radius:100px;padding:3px 12px;font-size:11px;font-weight:500;letter-spacing:.06em;margin-bottom:14px}
+.hero h1{font-size:clamp(1.6rem,4vw,2.8rem);color:#fff;line-height:1.15;margin-bottom:10px;font-weight:500}
+.hero h1 em{color:#e8c96a;font-style:italic}
+.hero p{color:rgba(255,255,255,.6);font-size:13px;max-width:460px;margin:0 auto 18px;line-height:1.7}
+.hbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.gbtn{background:#c9a84c;color:#0d1117;border:none;font-size:13px;font-weight:500;padding:9px 20px;border-radius:7px;cursor:pointer;font-family:inherit}
+.gbtn:hover{background:#e8c96a}
+.obtn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);font-size:13px;padding:9px 20px;border-radius:7px;cursor:pointer;font-family:inherit}
+.obtn:hover{border-color:rgba(255,255,255,.5)}
+.hstats{display:flex;justify-content:center;gap:28px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.stn{font-size:1.4rem;font-weight:500;color:#e8c96a;display:block}
+.stl{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.05em}
+
+.sect{padding:32px 20px}
+.si{max-width:800px;margin:0 auto}
+.slbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#1a7f6e;margin-bottom:5px}
+.stit{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:500;line-height:1.2}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}
+.fc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;cursor:default}
+.fc:hover{border-color:var(--color-border-secondary)}
+.fic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.fc h3{font-size:14px;font-weight:500;margin-bottom:4px}
+.fc p{color:var(--color-text-secondary);font-size:12px;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:20px;counter-reset:st}
+.step{counter-increment:st;text-align:center}
+.step::before{content:counter(st);display:block;width:36px;height:36px;background:#0d1117;color:#e8c96a;font-size:16px;font-weight:500;border-radius:50%;line-height:36px;margin:0 auto 10px}
+.step h3{font-size:13px;font-weight:500;margin-bottom:4px}
+.step p{color:var(--color-text-secondary);font-size:12px;line-height:1.6}
+
+.checker-wrap{max-width:680px;margin:0 auto;padding:24px 16px}
+.checker-wrap h2{font-size:22px;font-weight:500;margin-bottom:4px}
+.checker-wrap>p{color:var(--color-text-secondary);font-size:13px;margin-bottom:18px}
+.upzone{border:2px dashed var(--color-border-tertiary);border-radius:10px;padding:24px 16px;text-align:center;cursor:pointer;background:var(--color-background-primary);margin-bottom:12px}
+.upzone:hover,.upzone.drag{border-color:#1a7f6e;background:rgba(26,127,110,.04)}
+.upzone i{font-size:28px;color:var(--color-text-secondary);display:block;margin-bottom:6px}
+.upzone h3{font-size:14px;font-weight:500;margin-bottom:2px}
+.upzone p{color:var(--color-text-secondary);font-size:12px}
+.sep{text-align:center;color:var(--color-text-secondary);font-size:12px;margin:-2px 0 10px}
+.fg1{margin-bottom:12px}
+.fg1 label{display:block;font-size:13px;font-weight:500;margin-bottom:4px}
+.fi{width:100%;padding:8px 11px;border:1.5px solid var(--color-border-tertiary);border-radius:7px;font-family:inherit;font-size:13px;background:var(--color-background-primary);color:var(--color-text-primary);outline:none}
+.fi:focus{border-color:#1a7f6e}
+textarea.fi{resize:vertical;min-height:110px}
+.errmsg{background:var(--color-background-danger);color:var(--color-text-danger);border-radius:7px;padding:8px 12px;font-size:12px;margin-bottom:10px}
+.sucmsg{background:var(--color-background-success);color:var(--color-text-success);border-radius:7px;padding:8px 12px;font-size:12px;margin-bottom:10px}
+.ckbtn{width:100%;background:#0d1117;color:#fff;border:none;font-family:inherit;font-weight:500;font-size:14px;padding:11px;border-radius:8px;cursor:pointer}
+.ckbtn:hover:not(:disabled){background:#1a7f6e}
+.ckbtn:disabled{opacity:.5;cursor:not-allowed}
+.spin{width:28px;height:28px;border:3px solid var(--color-border-tertiary);border-top-color:#1a7f6e;border-radius:50%;animation:sp 1s linear infinite;margin:16px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.rpanel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:20px;margin-top:16px}
+.stop{display:flex;align-items:center;gap:20px;margin-bottom:20px;padding-bottom:20px;border-bottom:0.5px solid var(--color-border-tertiary);flex-wrap:wrap}
+.rw{position:relative;width:110px;height:110px;flex-shrink:0}
+.rw svg{transform:rotate(-90deg)}
+.rc2{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rnum{font-size:28px;font-weight:500;line-height:1}
+.rlbl{font-size:10px;color:var(--color-text-secondary);letter-spacing:.08em;text-transform:uppercase}
+.si3 h3{font-size:16px;font-weight:500;margin-bottom:4px}
+.si3 p{color:var(--color-text-secondary);font-size:12px;line-height:1.65}
+.atsb{margin-top:8px}
+.atsl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;color:var(--color-text-secondary)}
+.btr{background:var(--color-background-secondary);border-radius:100px;height:6px;overflow:hidden}
+.bfl{height:100%;border-radius:100px;background:#1a7f6e;transition:width 1s ease}
+
+.rg2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+@media(max-width:500px){.rg2{grid-template-columns:1fr}.stop{flex-direction:column;gap:14px}}
+.rc3{background:var(--color-background-secondary);border-radius:8px;padding:12px}
+.rc3 h4{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin-bottom:8px}
+.tlist{display:flex;flex-wrap:wrap;gap:4px}
+.tg{font-size:11px;padding:2px 8px;border-radius:100px;font-weight:500}
+.tg.g{background:#dcfce7;color:#15803d}.tg.r{background:#fee2e2;color:#b91c1c}.tg.b{background:#dbeafe;color:#1d4ed8}
+.ssrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ssrow:last-child{border:none}
+.ssnm{width:72px;font-size:12px;font-weight:500;flex-shrink:0}
+.ssbr{flex:0 0 90px;background:var(--color-background-secondary);border-radius:100px;height:5px;overflow:hidden}
+.ssfl{height:100%;border-radius:100px;background:#1a7f6e}
+.ssn{width:26px;text-align:right;font-size:11px;color:var(--color-text-secondary)}
+.ssfb{flex:1;font-size:11px;color:var(--color-text-secondary);padding-left:6px}
+.al2{list-style:none}
+.al2 li{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:0.5px solid rgba(255,255,255,.1);font-size:12px;color:#fff}
+.al2 li:last-child{border:none}
+.an{width:18px;height:18px;background:rgba(255,255,255,.15);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;margin-top:1px}
+
+.auth-bg{min-height:520px;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#0d1117 0%,#0f3028 100%)}
+.auth-card{background:var(--color-background-primary);border-radius:14px;padding:26px;width:100%;max-width:340px;border:0.5px solid var(--color-border-tertiary)}
+.auth-logo{font-size:18px;font-weight:500;text-align:center;margin-bottom:3px}
+.auth-logo span{color:#c9a84c}
+.auth-sub{text-align:center;color:var(--color-text-secondary);font-size:12px;margin-bottom:20px}
+.auth-card h2{font-size:20px;font-weight:500;text-align:center;margin-bottom:18px}
+.fbtn{width:100%;padding:10px;background:#0d1117;color:#fff;border:none;font-family:inherit;font-weight:500;font-size:14px;border-radius:7px;cursor:pointer;margin-top:4px}
+.fbtn:hover{background:#1a7f6e}
+.aswitch{text-align:center;margin-top:12px;font-size:12px;color:var(--color-text-secondary)}
+.aswitch a{color:#1a7f6e;cursor:pointer;font-weight:500}
+.aswitch a:hover{text-decoration:underline}
+.hint-box{background:var(--color-background-secondary);border-radius:7px;padding:8px 12px;font-size:11px;color:var(--color-text-secondary);margin-top:10px;text-align:center;line-height:1.7}
+
+.dash-wrap{max-width:760px;margin:0 auto;padding:24px 16px}
+.dc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0 22px}
+.dc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:14px}
+.dcv{font-size:26px;font-weight:500;margin-bottom:2px}
+.dcl{font-size:11px;color:var(--color-text-secondary);letter-spacing:.04em}
+.htbl{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.htbl th{text-align:left;padding:8px 10px;background:var(--color-background-secondary);color:var(--color-text-secondary);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.htbl td{padding:9px 10px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.htbl tr:last-child td{border:none}
+.sp2{display:inline-flex;padding:2px 7px;border-radius:100px;font-weight:500;font-size:11px}
+.sp2.hi{background:#dcfce7;color:#15803d}.sp2.mi{background:#fef3c7;color:#b45309}.sp2.lo{background:#fee2e2;color:#b91c1c}
+
+.admin-wrap{max-width:860px;margin:0 auto;padding:24px 16px}
+.abadge{display:inline-flex;align-items:center;gap:4px;background:#fef3c7;color:#b45309;border-radius:100px;font-size:11px;font-weight:500;padding:2px 9px;margin-bottom:5px}
+.atabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.atab{background:none;border:none;font-family:inherit;font-size:13px;color:var(--color-text-secondary);padding:7px 12px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
+.atab.active{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary)}
+.atp{display:none}.atp.active{display:block}
+.dt2{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.dt2 th{text-align:left;padding:8px 10px;background:#0d1117;color:rgba(255,255,255,.7);font-weight:500;font-size:11px}
+.dt2 th:first-child{border-radius:7px 0 0 0}.dt2 th:last-child{border-radius:0 7px 0 0}
+.dt2 td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.dt2 tr:hover td{background:var(--color-background-secondary)}
+.bdg{display:inline-flex;padding:2px 6px;border-radius:100px;font-size:11px;font-weight:500}
+.bdg.adm{background:#fef3c7;color:#b45309}.bdg.usr{background:#e0f2fe;color:#0369a1}.bdg.act{background:#f3e8ff;color:#7e22ce}
+.tbtn{background:none;border:0.5px solid var(--color-border-tertiary);border-radius:5px;padding:3px 7px;cursor:pointer;font-size:11px;font-family:inherit;color:var(--color-text-primary)}
+.tbtn:hover{background:var(--color-background-secondary)}
+
+.cta-dark{background:#0d1117;color:#fff;padding:28px 20px;text-align:center}
+.cta-dark h2{font-size:20px;font-weight:500;color:#fff;margin-bottom:6px}
+.cta-dark p{color:rgba(255,255,255,.55);font-size:13px;margin-bottom:16px}
+footer{background:#0d1117;color:rgba(255,255,255,.4);padding:14px;text-align:center;font-size:11px}
+footer strong{color:#e8c96a}
+.hidden{display:none!important}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"/>
+<h2 class="sr-only">ResumeAI Pro — fully interactive AI resume checker</h2>
+
+<nav id="NAV">
+  <div class="logo" id="btnLogo">Resume<span>AI</span> Pro</div>
+  <div class="nav-r">
+    <button class="nbtn" id="btnHome">Home</button>
+    <button class="nbtn" id="btnFeatures">Features</button>
+    <button class="nbtn hidden" id="btnCheck">Check Resume</button>
+    <button class="nbtn hidden" id="btnDash">Dashboard</button>
+    <button class="nbtn hidden" id="btnAdmin">Admin</button>
+    <span id="guestNav">
+      <button class="nbtn pri" id="btnSignIn">Sign In</button>
+    </span>
+    <span id="userNav" class="hidden" style="display:flex;align-items:center;gap:6px">
+      <div class="av" id="navAv"></div>
+      <span id="navName" style="font-size:13px;font-weight:500"></span>
+      <button class="nbtn" id="btnLogout">Sign Out</button>
+    </span>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hbadge"><i class="ti ti-sparkles" aria-hidden="true"></i> Powered by Claude AI</div>
+    <h1>Your Resume, <em>Perfected</em><br>by Artificial Intelligence</h1>
+    <p>Upload your resume and get instant, expert-level AI feedback on ATS compatibility, impact, and what recruiters really see.</p>
+    <div class="hbtns">
+      <button class="gbtn" id="heroAnalyze"><i class="ti ti-file-search" aria-hidden="true"></i> Analyze My Resume</button>
+      <button class="obtn" id="heroFeatures">See How It Works</button>
+    </div>
+    <div class="hstats">
+      <div><span class="stn">98%</span><span class="stl">ATS Accuracy</span></div>
+      <div><span class="stn">2.5s</span><span class="stl">Analysis Time</span></div>
+      <div><span class="stn">40+</span><span class="stl">Data Points</span></div>
+      <div><span class="stn">24/7</span><span class="stl">Available</span></div>
+    </div>
+  </div>
+
+  <div class="sect" style="background:var(--color-background-primary)">
+    <div class="si">
+      <div class="slbl">How It Works</div>
+      <div class="stit">Three steps to your dream job</div>
+      <div class="steps">
+        <div class="step"><h3>Upload Your Resume</h3><p>Drag and drop PDF, DOCX, or paste text directly. All common formats supported.</p></div>
+        <div class="step"><h3>AI Analyzes It</h3><p>Claude evaluates 40+ factors including ATS score, keyword gaps, and clarity.</p></div>
+        <div class="step"><h3>Get Actionable Insights</h3><p>Receive a detailed score breakdown with specific, prioritized recommendations.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="si">
+      <div class="slbl">Features</div>
+      <div class="stit">Everything to land the interview</div>
+      <div class="fg">
+        <div class="fc"><div class="fic" style="background:#dcfce7"><i class="ti ti-target" style="color:#15803d" aria-hidden="true"></i></div><h3>ATS Score</h3><p>Know how Applicant Tracking Systems score you before reaching a recruiter.</p></div>
+        <div class="fc"><div class="fic" style="background:#dbeafe"><i class="ti ti-key" style="color:#1d4ed8" aria-hidden="true"></i></div><h3>Keyword Analysis</h3><p>See which keywords you're missing for your exact target role.</p></div>
+        <div class="fc"><div class="fic" style="background:#fef3c7"><i class="ti ti-chart-bar" style="color:#b45309" aria-hidden="true"></i></div><h3>Section Scores</h3><p>Detailed scores for Contact, Summary, Experience, Skills, Education.</p></div>
+        <div class="fc"><div class="fic" style="background:#f3e8ff"><i class="ti ti-bolt" style="color:#7e22ce" aria-hidden="true"></i></div><h3>Instant Results</h3><p>Full analysis in under 3 seconds, available 24/7 with no waiting.</p></div>
+        <div class="fc"><div class="fic" style="background:#ffe4e6"><i class="ti ti-list-check" style="color:#b91c1c" aria-hidden="true"></i></div><h3>Action Items</h3><p>Prioritized, specific next steps — not vague advice, real instructions.</p></div>
+        <div class="fc"><div class="fic" style="background:#ecfdf5"><i class="ti ti-history" style="color:#15803d" aria-hidden="true"></i></div><h3>Check History</h3><p>Track progress over time. All resume versions and scores saved.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-dark">
+    <h2>Ready to get hired faster?</h2>
+    <p>Start improving your resume with AI-powered analysis today — completely free.</p>
+    <button class="gbtn" id="heroGetStarted" style="font-size:14px;padding:10px 24px">Get Started Free</button>
+  </div>
+  <footer>Built with Flask + <strong>Claude AI</strong> &nbsp;·&nbsp; ResumeAI Pro &copy; 2025</footer>
+</div>
+
+<!-- FEATURES -->
+<div id="page-features" class="page">
+  <div style="background:#0d1117;padding:28px 20px;text-align:center">
+    <h1 style="color:#fff;font-size:22px;font-weight:500">Platform Features</h1>
+    <p style="color:rgba(255,255,255,.55);margin-top:4px;font-size:13px">Everything included — no paywalls, no upsells</p>
+  </div>
+  <div class="sect">
+    <div class="si">
+      <div class="fg">
+        <div class="fc"><div class="fic" style="background:#dcfce7"><i class="ti ti-robot" style="color:#15803d" aria-hidden="true"></i></div><h3>Claude AI Engine</h3><p>Powered by Anthropic's Claude — trusted by enterprises for nuanced, expert feedback on professional documents.</p></div>
+        <div class="fc"><div class="fic" style="background:#dbeafe"><i class="ti ti-file-stack" style="color:#1d4ed8" aria-hidden="true"></i></div><h3>Multi-Format Support</h3><p>Upload PDF, DOCX, or paste plain text. We extract and analyze content regardless of layout complexity.</p></div>
+        <div class="fc"><div class="fic" style="background:#fef3c7"><i class="ti ti-target" style="color:#b45309" aria-hidden="true"></i></div><h3>Role-Specific Analysis</h3><p>Tell us your target job for tailored keyword matching and relevance scoring for that exact position.</p></div>
+        <div class="fc"><div class="fic" style="background:#f3e8ff"><i class="ti ti-lock" style="color:#7e22ce" aria-hidden="true"></i></div><h3>Secure &amp; Private</h3><p>Passwords bcrypt-hashed. Data encrypted at rest. We never share or sell your data. GDPR-compliant.</p></div>
+        <div class="fc"><div class="fic" style="background:#ffe4e6"><i class="ti ti-trending-up" style="color:#b91c1c" aria-hidden="true"></i></div><h3>Progress Tracking</h3><p>Recheck after improvements and watch your score climb with a full history log in your dashboard.</p></div>
+        <div class="fc"><div class="fic" style="background:#ecfdf5"><i class="ti ti-shield-check" style="color:#15803d" aria-hidden="true"></i></div><h3>Admin Portal</h3><p>Full admin dashboard for monitoring user activity, usage patterns, and managing the platform.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:24px">
+        <button class="ckbtn" style="max-width:220px" id="featuresAnalyze">Try It Free Now</button>
+      </div>
+    </div>
+  </div>
+  <footer>ResumeAI Pro &copy; 2025 &nbsp;&nbsp; <strong>Flask + Claude AI</strong></footer>
+</div>
+
+<!-- CHECKER -->
+<div id="page-checker" class="page">
+  <div class="checker-wrap">
+    <h2>Analyze Your Resume</h2>
+    <p>Upload a file or paste resume text below. Enter your target role for best results.</p>
+
+    <div class="upzone" id="upzone">
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" style="display:none">
+      <i class="ti ti-file-upload" aria-hidden="true"></i>
+      <h3 id="upTitle">Drop your resume here</h3>
+      <p id="upSub">PDF, DOCX or TXT &nbsp;&middot;&nbsp; Click or drag to upload</p>
+    </div>
+    <div class="sep">— or paste resume text —</div>
+
+    <div class="fg1">
+      <label for="rtxt">Resume Text</label>
+      <textarea class="fi" id="rtxt" placeholder="Jane Smith&#10;jane@email.com | (555) 123-4567&#10;&#10;EXPERIENCE&#10;Software Engineer — Acme Corp (2021–2024)&#10;• Built REST APIs serving 2M+ daily users&#10;• Reduced page load time by 45% using React optimization&#10;&#10;SKILLS&#10;Python, JavaScript, React, AWS, Docker, SQL..."></textarea>
+    </div>
+    <div class="fg1">
+      <label for="jrole">Target Job Role</label>
+      <input class="fi" id="jrole" type="text" placeholder="e.g. Senior Software Engineer, Product Manager, Data Analyst...">
+    </div>
+    <div id="ckErr" class="errmsg hidden"></div>
+    <button class="ckbtn" id="ckBtn">
+      <i class="ti ti-sparkles" aria-hidden="true"></i> Analyze Resume with AI
+    </button>
+
+    <div id="loading" class="hidden" style="text-align:center;margin-top:16px">
+      <div class="spin"></div>
+      <p style="color:var(--color-text-secondary);font-size:13px">Analyzing with Claude AI…</p>
+    </div>
+
+    <div id="rPanel" class="rpanel hidden">
+      <div class="stop">
+        <div class="rw">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="46" fill="none" stroke="var(--color-background-secondary)" stroke-width="9"/>
+            <circle id="ringCirc" cx="55" cy="55" r="46" fill="none" stroke="#1a7f6e" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="289.03" stroke-dashoffset="289.03"/>
+          </svg>
+          <div class="rc2"><div class="rnum" id="rNum">—</div><div class="rlbl">Score</div></div>
+        </div>
+        <div class="si3" style="flex:1">
+          <h3 id="rTitle">Your Resume Score</h3>
+          <p id="rSum" style="margin-top:4px"></p>
+          <div class="atsb">
+            <div class="atsl"><span>ATS Compatibility</span><span id="rAts">—</span></div>
+            <div class="btr"><div class="bfl" id="rAtsBar" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <h4 style="font-size:14px;font-weight:500;margin-bottom:8px">Section Breakdown</h4>
+        <div id="secScores"></div>
+      </div>
+
+      <div class="rg2">
+        <div class="rc3"><h4><i class="ti ti-check" aria-hidden="true"></i> Strengths</h4><div class="tlist" id="tgStr"></div></div>
+        <div class="rc3"><h4><i class="ti ti-alert-triangle" aria-hidden="true"></i> To Improve</h4><div class="tlist" id="tgImp"></div></div>
+        <div class="rc3"><h4><i class="ti ti-key" aria-hidden="true"></i> Keywords Found</h4><div class="tlist" id="tgKF"></div></div>
+        <div class="rc3"><h4><i class="ti ti-x" aria-hidden="true"></i> Missing Keywords</h4><div class="tlist" id="tgKM"></div></div>
+      </div>
+
+      <div class="rc3" style="background:#0d1117;margin-top:0">
+        <h4 style="color:#e8c96a;margin-bottom:8px;font-size:13px"><i class="ti ti-rocket" aria-hidden="true"></i> Priority Action Items</h4>
+        <ul class="al2" id="actList"></ul>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="tbtn" id="checkAgain" style="background:#0d1117;color:#fff;border-color:#0d1117">Check Another Resume</button>
+        <button class="tbtn" id="viewHistory">View History</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page">
+  <div class="dash-wrap">
+    <h2 style="font-size:22px;font-weight:500">My Dashboard</h2>
+    <p id="dashWelcome" style="color:var(--color-text-secondary);font-size:13px;margin-bottom:16px">Track your resume improvement journey</p>
+    <div class="dc-grid">
+      <div class="dc"><div class="dcv" id="dcTotal">0</div><div class="dcl">Total Checks</div></div>
+      <div class="dc"><div class="dcv" id="dcBest">—</div><div class="dcl">Best Score</div></div>
+      <div class="dc"><div class="dcv" id="dcAvg">—</div><div class="dcl">Avg Score</div></div>
+      <div class="dc"><div class="dcv" id="dcRecent">—</div><div class="dcl">Last Score</div></div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <h3 style="font-size:16px;font-weight:500">Check History</h3>
+      <button class="ckbtn" style="max-width:160px;padding:7px 14px;font-size:13px" id="newCheck">
+        <i class="ti ti-plus" aria-hidden="true"></i> New Analysis
+      </button>
+    </div>
+    <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;overflow:auto">
+      <table class="htbl">
+        <thead><tr><th style="width:28%">File</th><th style="width:28%">Role</th><th style="width:14%">Score</th><th style="width:14%">ATS</th><th style="width:16%">Date</th></tr></thead>
+        <tbody id="histBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--color-text-secondary)">No checks yet</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="abadge"><i class="ti ti-shield-half" aria-hidden="true"></i> Admin Portal</div>
+    <h2 style="font-size:22px;font-weight:500;margin-bottom:3px">Platform Overview</h2>
+    <p style="color:var(--color-text-secondary);font-size:13px;margin-bottom:18px">Monitor users, checks, and activity in real time</p>
+    <div class="dc-grid" style="margin-bottom:20px">
+      <div class="dc"><div class="dcv" id="aU">—</div><div class="dcl">Total Users</div></div>
+      <div class="dc"><div class="dcv" id="aChk">—</div><div class="dcl">Total Checks</div></div>
+      <div class="dc"><div class="dcv" id="aTd">—</div><div class="dcl">Today</div></div>
+      <div class="dc"><div class="dcv" id="aAvg">—</div><div class="dcl">Avg Score</div></div>
+    </div>
+    <div class="atabs">
+      <button class="atab active" data-tab="rc">Recent Checks</button>
+      <button class="atab" data-tab="us">Users</button>
+      <button class="atab" data-tab="lg">Activity Logs</button>
+    </div>
+    <div id="atp-rc" class="atp active">
+      <div style="overflow:auto;border-radius:8px;border:0.5px solid var(--color-border-tertiary)">
+        <table class="dt2">
+          <thead><tr><th style="width:22%">User</th><th style="width:20%">File</th><th style="width:20%">Role</th><th style="width:12%">Score</th><th style="width:12%">ATS</th><th style="width:14%">Date</th></tr></thead>
+          <tbody id="aChkBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="atp-us" class="atp">
+      <div style="overflow:auto;border-radius:8px;border:0.5px solid var(--color-border-tertiary)">
+        <table class="dt2">
+          <thead><tr><th style="width:22%">Name</th><th style="width:28%">Email</th><th style="width:14%">Role</th><th style="width:10%">Checks</th><th style="width:14%">Joined</th><th style="width:12%">Action</th></tr></thead>
+          <tbody id="aUsrBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="atp-lg" class="atp">
+      <div style="overflow:auto;border-radius:8px;border:0.5px solid var(--color-border-tertiary)">
+        <table class="dt2">
+          <thead><tr><th style="width:18%">Time</th><th style="width:18%">User</th><th style="width:15%">Action</th><th style="width:35%">Detail</th><th style="width:14%">IP</th></tr></thead>
+          <tbody id="aLogBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="page-login" class="page">
+  <div class="auth-bg">
+    <div class="auth-card">
+      <div class="auth-logo">Resume<span>AI</span> Pro</div>
+      <div class="auth-sub">Your AI-powered career partner</div>
+      <h2>Welcome back</h2>
+      <div id="lErr" class="errmsg hidden"></div>
+      <div class="fg1"><label for="lEmail">Email</label><input class="fi" id="lEmail" type="email" placeholder="you@email.com" autocomplete="email"></div>
+      <div class="fg1"><label for="lPass">Password</label><input class="fi" id="lPass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="fbtn" id="loginBtn">Sign In</button>
+      <div class="hint-box">
+        Demo: <strong>demo@resumeai.pro</strong> / Demo@123<br>
+        Admin: <strong>admin@resumeai.pro</strong> / Admin@123
+      </div>
+      <div class="aswitch">No account? <a id="goRegister">Sign up free</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div id="page-register" class="page">
+  <div class="auth-bg">
+    <div class="auth-card">
+      <div class="auth-logo">Resume<span>AI</span> Pro</div>
+      <div class="auth-sub">Free forever — no credit card needed</div>
+      <h2>Create account</h2>
+      <div id="rErr" class="errmsg hidden"></div>
+      <div id="rSuc" class="sucmsg hidden"></div>
+      <div class="fg1"><label for="rName">Full Name</label><input class="fi" id="rName" type="text" placeholder="Jane Smith"></div>
+      <div class="fg1"><label for="rEmail">Email</label><input class="fi" id="rEmail" type="email" placeholder="jane@email.com"></div>
+      <div class="fg1"><label for="rPass">Password</label><input class="fi" id="rPass" type="password" placeholder="At least 6 characters"></div>
+      <button class="fbtn" id="registerBtn">Create Free Account</button>
+      <div class="aswitch">Already registered? <a id="goLogin">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var DB = {
+  users: [
+    {id:1,name:'Admin User',email:'admin@resumeai.pro',pw:'Admin@123',admin:true,joined:'2025-01-01',checks:12},
+    {id:2,name:'Demo User',email:'demo@resumeai.pro',pw:'Demo@123',admin:false,joined:'2025-03-15',checks:4}
+  ],
+  history: [
+    {id:1,uid:2,file:'resume_v3.pdf',role:'Product Manager',score:78,ats:72,date:'2025-06-01'},
+    {id:2,uid:2,file:'resume_v2.docx',role:'Senior PM',score:63,ats:57,date:'2025-05-28'},
+    {id:3,uid:1,file:'admin_cv.pdf',role:'CTO',score:91,ats:88,date:'2025-05-20'}
+  ],
+  logs: [
+    {uid:2,action:'login',detail:'demo@resumeai.pro signed in',ip:'192.168.1.10',time:'2025-06-01 09:14'},
+    {uid:2,action:'resume_check',detail:'Checked resume_v3.pdf for Product Manager',ip:'192.168.1.10',time:'2025-06-01 09:16'},
+    {uid:1,action:'login',detail:'admin@resumeai.pro signed in',ip:'10.0.0.1',time:'2025-05-31 17:02'},
+    {uid:2,action:'register',detail:'New account: demo@resumeai.pro',ip:'192.168.1.10',time:'2025-03-15 11:30'}
+  ]
+};
+
+var CU = null;
+var upFile = null;
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var el = document.getElementById('page-' + id);
+  if (el) { el.classList.add('active'); el.scrollIntoView({block:'start'}); }
+}
+
+function go(id) {
+  showPage(id);
+  if (id === 'dashboard') renderDash();
+  if (id === 'admin') renderAdmin();
+}
+
+function setNav(user) {
+  CU = user;
+  var gEl = document.getElementById('guestNav');
+  var uEl = document.getElementById('userNav');
+  var cBtn = document.getElementById('btnCheck');
+  var dBtn = document.getElementById('btnDash');
+  var aBtn = document.getElementById('btnAdmin');
+  if (user) {
+    gEl.classList.add('hidden');
+    uEl.classList.remove('hidden');
+    uEl.style.display = 'flex';
+    document.getElementById('navAv').textContent = user.name.charAt(0).toUpperCase();
+    document.getElementById('navName').textContent = user.name.split(' ')[0];
+    cBtn.classList.remove('hidden');
+    dBtn.classList.remove('hidden');
+    if (user.admin) { aBtn.classList.remove('hidden'); } else { aBtn.classList.add('hidden'); }
+  } else {
+    gEl.classList.remove('hidden');
+    uEl.classList.add('hidden');
+    cBtn.classList.add('hidden');
+    dBtn.classList.add('hidden');
+    aBtn.classList.add('hidden');
+  }
+}
+
+function doLogin() {
+  var em = document.getElementById('lEmail').value.trim();
+  var pw = document.getElementById('lPass').value;
+  var err = document.getElementById('lErr');
+  err.classList.add('hidden');
+  if (!em || !pw) { err.textContent = 'Please enter your email and password.'; err.classList.remove('hidden'); return; }
+  var u = null;
+  for (var i = 0; i < DB.users.length; i++) {
+    if (DB.users[i].email === em && DB.users[i].pw === pw) { u = DB.users[i]; break; }
+  }
+  if (!u) { err.textContent = 'Invalid email or password. Try the demo credentials below.'; err.classList.remove('hidden'); return; }
+  DB.logs.unshift({uid:u.id,action:'login',detail:u.email+' signed in',ip:'127.0.0.1',time:new Date().toLocaleString()});
+  setNav(u);
+  go('checker');
+}
+
+function doLogout() {
+  if (CU) DB.logs.unshift({uid:CU.id,action:'logout',detail:(CU.email||'')+'  signed out',ip:'127.0.0.1',time:new Date().toLocaleString()});
+  setNav(null);
+  go('home');
+}
+
+function doRegister() {
+  var nm = document.getElementById('rName').value.trim();
+  var em = document.getElementById('rEmail').value.trim();
+  var pw = document.getElementById('rPass').value;
+  var err = document.getElementById('rErr');
+  var suc = document.getElementById('rSuc');
+  err.classList.add('hidden'); suc.classList.add('hidden');
+  if (!nm || !em || !pw) { err.textContent = 'All fields are required.'; err.classList.remove('hidden'); return; }
+  for (var i = 0; i < DB.users.length; i++) {
+    if (DB.users[i].email === em) { err.textContent = 'Email already registered. Sign in instead.'; err.classList.remove('hidden'); return; }
+  }
+  if (pw.length < 6) { err.textContent = 'Password must be at least 6 characters.'; err.classList.remove('hidden'); return; }
+  var nu = {id:DB.users.length+1,name:nm,email:em,pw:pw,admin:false,joined:new Date().toISOString().split('T')[0],checks:0};
+  DB.users.push(nu);
+  DB.logs.unshift({uid:nu.id,action:'register',detail:'New account: '+em,ip:'127.0.0.1',time:new Date().toLocaleString()});
+  suc.textContent = 'Account created successfully! Signing you in…';
+  suc.classList.remove('hidden');
+  setTimeout(function(){ setNav(nu); go('checker'); }, 900);
+}
+
+function handleFileChange(inp) {
+  if (inp.files && inp.files[0]) {
+    upFile = inp.files[0];
+    document.getElementById('upTitle').textContent = inp.files[0].name;
+    document.getElementById('upSub').textContent = 'File selected — click to change';
+    document.getElementById('rtxt').value = '';
+  }
+}
+
+function mockAnalysis(txt, role) {
+  var wc = txt.split(/\s+/).filter(function(w){return w.length>0}).length;
+  var base = Math.min(90, Math.max(42, 40 + Math.round(wc / 6)));
+  var ats = Math.max(base - 12, 38);
+  var roleMap = {
+    'software': ['Python','JavaScript','React','Node.js','AWS','Docker','REST APIs','CI/CD','Agile','TypeScript'],
+    'product': ['Roadmap','Stakeholder','OKRs','Agile','User Research','GTM','Metrics','KPIs','Prioritization','A/B Testing'],
+    'data': ['SQL','Python','Tableau','Excel','Statistics','ETL','Power BI','Machine Learning','Pandas','BigQuery'],
+    'design': ['Figma','UX','Prototyping','User Testing','Wireframes','Adobe XD','Design Systems','Accessibility'],
+    'manager': ['Team Leadership','P&L','Strategy','Stakeholders','Budget','Hiring','OKRs','Cross-functional'],
+    'default': ['Communication','Leadership','Project Management','Analysis','Collaboration','Strategy','Problem Solving']
+  };
+  var rkey = 'default';
+  var rl = role.toLowerCase();
+  if (rl.indexOf('software') >= 0 || rl.indexOf('engineer') >= 0 || rl.indexOf('developer') >= 0) rkey = 'software';
+  else if (rl.indexOf('product') >= 0) rkey = 'product';
+  else if (rl.indexOf('data') >= 0 || rl.indexOf('analyst') >= 0) rkey = 'data';
+  else if (rl.indexOf('design') >= 0 || rl.indexOf('ux') >= 0) rkey = 'design';
+  else if (rl.indexOf('manager') >= 0 || rl.indexOf('director') >= 0) rkey = 'manager';
+  var kws = roleMap[rkey];
+  var grade = base >= 80 ? 'Strong' : base >= 65 ? 'Good' : base >= 50 ? 'Fair' : 'Weak';
+  return {
+    score: base, ats: ats,
+    title: base >= 80 ? 'Strong Resume!' : base >= 65 ? 'Good Foundation' : base >= 50 ? 'Needs Improvement' : 'Major Revision Needed',
+    summary: 'Your resume scores ' + base + '/100 for the ' + role + ' role. ' + grade + ' alignment with industry standards. ' + (base >= 70 ? 'Strong foundation — refine a few areas for maximum recruiter impact.' : 'Focus on the action items below to significantly boost your chances.'),
+    sections: {
+      Contact: {score:92, fb:'Contact info is present and well-formatted.'},
+      Summary: {score:Math.max(base-18,40), fb:'Professional summary could be more targeted to the specific role.'},
+      Experience: {score:base, fb:'Good work history. Strengthen with quantifiable achievements and metrics.'},
+      Skills: {score:Math.max(base-10,45), fb:'Solid skills listed. Add more role-specific technical skills.'},
+      Education: {score:87, fb:'Education section is clear, complete, and well-organized.'}
+    },
+    strengths: ['Clear contact information and formatting','Relevant professional work history','Demonstrates industry experience'],
+    improvements: ['Add quantifiable achievements (e.g. "Increased revenue by 30%")','Include more role-specific keywords from job descriptions','Strengthen professional summary to match ' + role],
+    kFound: kws.slice(0, 5),
+    kMiss: kws.slice(5, 8),
+    actions: [
+      'Rewrite your professional summary to directly address ' + role + ' requirements',
+      'Add specific metrics to at least 3 experience bullet points',
+      'Create a dedicated skills section with ' + role + '-specific tools and technologies'
+    ]
+  };
+}
+
+function doCheck() {
+  if (!CU) { go('login'); return; }
+  var errEl = document.getElementById('ckErr');
+  errEl.classList.add('hidden');
+  var txt = document.getElementById('rtxt').value.trim();
+  if (!upFile && !txt) {
+    errEl.textContent = 'Please upload a file or paste your resume text first.';
+    errEl.classList.remove('hidden'); return;
+  }
+  var role = document.getElementById('jrole').value.trim() || 'General Position';
+  document.getElementById('ckBtn').disabled = true;
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('rPanel').classList.add('hidden');
+  var content = txt || ('Resume file: ' + (upFile ? upFile.name : ''));
+  setTimeout(function() {
+    var r = mockAnalysis(content, role);
+    var fname = upFile ? upFile.name : 'pasted_text.txt';
+    var entry = {id:Date.now(), uid:CU.id, file:fname, role:role, score:r.score, ats:r.ats, date:new Date().toISOString().split('T')[0]};
+    DB.history.unshift(entry);
+    var u = DB.users.find(function(x){ return x.id === CU.id; });
+    if (u) u.checks++;
+    DB.logs.unshift({uid:CU.id,action:'resume_check',detail:'Analyzed '+fname+' for '+role,ip:'127.0.0.1',time:new Date().toLocaleString()});
+    renderResults(r);
+    document.getElementById('ckBtn').disabled = false;
+    document.getElementById('loading').classList.add('hidden');
+  }, 1600);
+}
+
+function renderResults(r) {
+  var panel = document.getElementById('rPanel');
+  panel.classList.remove('hidden');
+  var circ = 289.03;
+  var offset = circ - (r.score / 100) * circ;
+  var ring = document.getElementById('ringCirc');
+  ring.style.strokeDashoffset = circ;
+  ring.style.transition = 'none';
+  setTimeout(function(){ ring.style.transition = 'stroke-dashoffset 1s ease'; ring.style.strokeDashoffset = offset; }, 50);
+  document.getElementById('rNum').textContent = Math.round(r.score);
+  document.getElementById('rTitle').textContent = (r.score >= 80 ? '🎉 ' : r.score >= 65 ? '📈 ' : '⚠️ ') + r.title;
+  document.getElementById('rSum').textContent = r.summary;
+  var ats = Math.round(r.ats);
+  document.getElementById('rAts').textContent = ats + '%';
+  var bar = document.getElementById('rAtsBar');
+  bar.style.width = '0%';
+  setTimeout(function(){ bar.style.transition = 'width 1s ease'; bar.style.width = ats + '%'; }, 100);
+  var ss = document.getElementById('secScores');
+  ss.innerHTML = '';
+  Object.keys(r.sections).forEach(function(nm) {
+    var d = r.sections[nm];
+    var sc = Math.round(d.score);
+    ss.innerHTML += '<div class="ssrow"><div class="ssnm">'+nm+'</div><div class="ssbr"><div class="ssfl" style="width:'+sc+'%"></div></div><div class="ssn">'+sc+'</div><div class="ssfb">'+d.fb+'</div></div>';
+  });
+  function mkTags(id, arr, cls) {
+    var el = document.getElementById(id);
+    el.innerHTML = arr.map(function(t){ return '<span class="tg '+cls+'">'+t+'</span>'; }).join('');
+  }
+  mkTags('tgStr', r.strengths, 'g');
+  mkTags('tgImp', r.improvements, 'r');
+  mkTags('tgKF', r.kFound, 'b');
+  mkTags('tgKM', r.kMiss, 'r');
+  document.getElementById('actList').innerHTML = r.actions.map(function(a, i){
+    return '<li><span class="an">'+(i+1)+'</span>'+a+'</li>';
+  }).join('');
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderDash() {
+  if (!CU) return;
+  document.getElementById('dashWelcome').textContent = 'Welcome back, ' + CU.name + ' — track your progress below.';
+  var h = DB.history.filter(function(x){ return x.uid === CU.id; });
+  document.getElementById('dcTotal').textContent = h.length;
+  if (h.length) {
+    var scores = h.map(function(x){ return x.score; });
+    document.getElementById('dcBest').textContent = Math.round(Math.max.apply(null, scores));
+    document.getElementById('dcAvg').textContent = Math.round(scores.reduce(function(a,b){return a+b},0) / scores.length);
+    document.getElementById('dcRecent').textContent = Math.round(h[0].score);
+  } else {
+    document.getElementById('dcBest').textContent = '—';
+    document.getElementById('dcAvg').textContent = '—';
+    document.getElementById('dcRecent').textContent = '—';
+  }
+  var tb = document.getElementById('histBody');
+  if (!h.length) {
+    tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--color-text-secondary)">No resume checks yet. <span style="color:#1a7f6e;cursor:pointer" id="dashGoCheck">Analyze your first resume</span></td></tr>';
+    var gcEl = document.getElementById('dashGoCheck');
+    if (gcEl) gcEl.addEventListener('click', function(){ go('checker'); });
+    return;
+  }
+  tb.innerHTML = h.map(function(x) {
+    var s = Math.round(x.score);
+    var cls = s >= 75 ? 'hi' : s >= 55 ? 'mi' : 'lo';
+    return '<tr><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+x.file+'</td><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+x.role+'</td><td><span class="sp2 '+cls+'">'+s+'</span></td><td>'+Math.round(x.ats)+'</td><td>'+x.date+'</td></tr>';
+  }).join('');
+}
+
+function renderAdmin() {
+  if (!CU || !CU.admin) { go('home'); return; }
+  document.getElementById('aU').textContent = DB.users.length;
+  document.getElementById('aChk').textContent = DB.history.length;
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('aTd').textContent = DB.history.filter(function(x){ return x.date === today; }).length;
+  var sc = DB.history.map(function(x){ return x.score; });
+  document.getElementById('aAvg').textContent = sc.length ? Math.round(sc.reduce(function(a,b){return a+b},0)/sc.length) : '—';
+  renderAdminChecks();
+}
+
+function renderAdminChecks() {
+  var tb = document.getElementById('aChkBody');
+  var rows = DB.history.slice(0, 10).map(function(x) {
+    var u = DB.users.find(function(u){ return u.id === x.uid; }) || {name:'Unknown',email:''};
+    var s = Math.round(x.score); var cls = s>=75?'hi':s>=55?'mi':'lo';
+    return '<tr><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><strong>'+u.name+'</strong></td><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+x.file+'</td><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+x.role+'</td><td><span class="sp2 '+cls+'">'+s+'</span></td><td>'+Math.round(x.ats)+'</td><td>'+x.date+'</td></tr>';
+  });
+  tb.innerHTML = rows.join('') || '<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--color-text-secondary)">No checks yet</td></tr>';
+}
+
+function renderAdminUsers() {
+  document.getElementById('aUsrBody').innerHTML = DB.users.map(function(u) {
+    return '<tr><td>'+u.name+'</td><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.email+'</td><td><span class="bdg '+(u.admin?'adm':'usr')+'">'+(u.admin?'Admin':'User')+'</span></td><td>'+u.checks+'</td><td>'+u.joined+'</td><td><button class="tbtn tog-adm" data-id="'+u.id+'">'+(u.admin?'Remove Admin':'Make Admin')+'</button></td></tr>';
+  }).join('');
+  document.querySelectorAll('.tog-adm').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var uid = parseInt(this.getAttribute('data-id'));
+      if (CU && uid === CU.id) { alert('Cannot change your own admin status.'); return; }
+      if (!confirm('Toggle admin status for this user?')) return;
+      var u = DB.users.find(function(x){ return x.id === uid; });
+      if (u) { u.admin = !u.admin; renderAdminUsers(); }
+    });
+  });
+}
+
+function renderAdminLogs() {
+  document.getElementById('aLogBody').innerHTML = DB.logs.map(function(l) {
+    var u = DB.users.find(function(x){ return x.id === l.uid; }) || {name:'Guest'};
+    return '<tr><td style="font-size:11px;color:var(--color-text-secondary)">'+l.time+'</td><td>'+u.name+'</td><td><span class="bdg act">'+l.action+'</span></td><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+l.detail+'</td><td style="font-size:11px;color:var(--color-text-secondary)">'+l.ip+'</td></tr>';
+  }).join('');
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.atab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.atp').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('[data-tab="'+tab+'"]').classList.add('active');
+  document.getElementById('atp-'+tab).classList.add('active');
+  if (tab === 'us') renderAdminUsers();
+  if (tab === 'lg') renderAdminLogs();
+  if (tab === 'rc') renderAdminChecks();
+}
+
+function resetChecker() {
+  upFile = null;
+  document.getElementById('rtxt').value = '';
+  document.getElementById('jrole').value = '';
+  document.getElementById('upTitle').textContent = 'Drop your resume here';
+  document.getElementById('upSub').textContent = 'PDF, DOCX or TXT · Click or drag to upload';
+  document.getElementById('rPanel').classList.add('hidden');
+  document.getElementById('ckErr').classList.add('hidden');
+  document.getElementById('fileInput').value = '';
+  window.scrollTo(0,0);
+}
+
+document.getElementById('btnLogo').addEventListener('click', function(){ go('home'); });
+document.getElementById('btnHome').addEventListener('click', function(){ go('home'); });
+document.getElementById('btnFeatures').addEventListener('click', function(){ go('features'); });
+document.getElementById('btnCheck').addEventListener('click', function(){ go('checker'); });
+document.getElementById('btnDash').addEventListener('click', function(){ go('dashboard'); });
+document.getElementById('btnAdmin').addEventListener('click', function(){ go('admin'); });
+document.getElementById('btnSignIn').addEventListener('click', function(){ go('login'); });
+document.getElementById('btnLogout').addEventListener('click', doLogout);
+
+document.getElementById('heroAnalyze').addEventListener('click', function(){ CU ? go('checker') : go('login'); });
+document.getElementById('heroFeatures').addEventListener('click', function(){ go('features'); });
+document.getElementById('heroGetStarted').addEventListener('click', function(){ CU ? go('checker') : go('register'); });
+document.getElementById('featuresAnalyze').addEventListener('click', function(){ CU ? go('checker') : go('register'); });
+
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('lPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('lEmail').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('goRegister').addEventListener('click', function(){ go('register'); });
+
+document.getElementById('registerBtn').addEventListener('click', doRegister);
+document.getElementById('rPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doRegister(); });
+document.getElementById('goLogin').addEventListener('click', function(){ go('login'); });
+
+document.getElementById('ckBtn').addEventListener('click', doCheck);
+document.getElementById('checkAgain').addEventListener('click', resetChecker);
+document.getElementById('viewHistory').addEventListener('click', function(){ go('dashboard'); });
+
+document.getElementById('newCheck').addEventListener('click', function(){ go('checker'); });
+
+var uz = document.getElementById('upzone');
+uz.addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+document.getElementById('fileInput').addEventListener('change', function(){ handleFileChange(this); });
+uz.addEventListener('dragover', function(e){ e.preventDefault(); uz.classList.add('drag'); });
+uz.addEventListener('dragleave', function(){ uz.classList.remove('drag'); });
+uz.addEventListener('drop', function(e){
+  e.preventDefault(); uz.classList.remove('drag');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    upFile = e.dataTransfer.files[0];
+    document.getElementById('upTitle').textContent = upFile.name;
+    document.getElementById('upSub').textContent = 'File selected — click to change';
+    document.getElementById('rtxt').value = '';
+  }
+});
+
+document.querySelectorAll('.atab').forEach(function(btn) {
+  btn.addEventListener('click', function(){ switchAdminTab(this.getAttribute('data-tab')); });
+});
+
+setNav(null);
+</script>
